@@ -1,21 +1,33 @@
-import { User } from '@prisma/client'
-import bcrypt from 'bcrypt'
-import { LoginUserModel } from '../model/login-user.model'
+import { User } from '@prisma/client';
+import bcrypt from 'bcrypt';
+import { sign } from 'jsonwebtoken';
+import { LoginUserModel } from '../model/login-user.model';
+import { ERROR_MESSAGE } from '../util/error_message';
+import 'dotenv/config';
 
 export abstract class LoginUserService {
   static async exec(loginParams: { email: string; senha: string }) {
-    const { email, senha } = loginParams
+    const { email, senha } = loginParams;
 
-    try {
-      const user = (await LoginUserModel.exec(email)) as User
-      const result = await bcrypt.compare(senha, user.senha)
-      if (result) {
-        return user
-      } else {
-        throw new Error()
-      }
-    } catch (e) {
-      return { error: 'algo deu errado...' }
+    const user = (await LoginUserModel.exec(email)) as User;
+
+    if (!user) {
+      throw new Error(ERROR_MESSAGE.USER_NOT_FOUND);
     }
+
+    const result = await bcrypt.compare(senha, user.senha);
+
+    if (!result) {
+      throw new Error(ERROR_MESSAGE.INVALID_PASSWORD);
+    }
+
+    const secret = process.env.SECRET_KEY as string;
+
+    const token = sign(user, secret, {
+      subject: `${user.id}`,
+      expiresIn: '1d',
+    });
+
+    return token;
   }
 }

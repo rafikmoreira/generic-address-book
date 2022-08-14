@@ -1,13 +1,22 @@
-import { Router } from 'express'
-import { ContactController } from '../controller/contact.controller'
+import { Router } from 'express';
+import { ContactController } from '../controller/contact.controller';
+import { ensureAuthenticated } from '../middleware/ensureAuthenticated';
 
-const contactController = new ContactController()
-const contactRouter = Router()
+const contactController = new ContactController();
+const contactRouter = Router();
 
-contactRouter.get('/contact', contactController.list)
-contactRouter.get('/contact/:id', contactController.show)
-contactRouter.post('/contact', contactController.create)
-contactRouter.put('/contact/:id', contactController.update)
-contactRouter.delete('/contact/:id', contactController.destroy)
+contactRouter.get('/contact', ensureAuthenticated, contactController.list);
+contactRouter.get('/contact/:id', ensureAuthenticated, contactController.show);
+contactRouter.post('/contact', ensureAuthenticated, contactController.create);
+contactRouter.put(
+  '/contact/:id',
+  ensureAuthenticated,
+  contactController.update
+);
+contactRouter.delete(
+  '/contact/:id',
+  ensureAuthenticated,
+  contactController.destroy
+);
 
-export default contactRouter
+export default contactRouter;

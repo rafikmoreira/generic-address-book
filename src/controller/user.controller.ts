@@ -12,9 +12,9 @@ export class UserController implements Controller {
 
   async login(req: Request, res: Response): Promise<Response> {
     const loginParams = req.body as { email: string; senha: string };
-    const userData = await LoginUserService.exec(loginParams);
+    const token = await LoginUserService.exec(loginParams);
 
-    return res.status(200).json(userData);
+    return res.status(200).json({ token });
   }
 
   async show(req: Request, res: Response): Promise<Response> {
