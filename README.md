@@ -17,3 +17,6 @@ Exemplo:
 
 npx prisma migrate dev --name add_email_to_user
 Esse comando irá gerar um novo arquivo de migração no diretório root/prisma/migrations
+
+Executar migrações existentes:
+npx prisma migrate dev
