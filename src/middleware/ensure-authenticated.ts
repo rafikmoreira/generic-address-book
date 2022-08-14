@@ -18,7 +18,7 @@ export const ensureAuthenticated = (
 
   try {
     verify(token, secret);
-    req.body.current_user = decode(token);
+    req.body.currentUser = decode(token);
     return next();
   } catch (e) {
     return res.status(401).json({ message: ERROR_MESSAGE.UNAUTHORIZED });
