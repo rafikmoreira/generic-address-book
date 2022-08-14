@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { CreateUserService } from '../service/create-user.service'
 import { LoginUserService } from '../service/login-user.service'
 
-import { Controller } from './controller'
+import { Controller } from '../interfaces/controller'
 
 export class UserController implements Controller {
   async list(req: Request, res: Response): Promise<Response> {
