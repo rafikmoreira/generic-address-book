@@ -1,5 +1,5 @@
 import { Contact, User } from '@prisma/client';
-import { CreateContactModel } from '../../model/create-contact.model';
+import { CreateContactModel } from '../../model/contact/create-contact.model';
 
 export abstract class CreateContactService {
   static async exec(contactData: Contact, user: User) {

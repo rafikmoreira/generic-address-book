@@ -1,5 +1,5 @@
 import { Contact, PrismaClient, User } from '@prisma/client';
-import { ERROR_MESSAGE } from '../util/error_message';
+import { ERROR_MESSAGE } from '../../util/error_message';
 
 export abstract class UpdateContactModel {
   static async exec(contactId: number, contactData: Contact, user: User) {
