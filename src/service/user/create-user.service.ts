@@ -1,5 +1,5 @@
 import { User } from '@prisma/client';
-import { CreateUserModel } from '../../model/create-user.model';
+import { CreateUserModel } from '../../model/user/create-user.model';
 import bcrypt from 'bcrypt';
 
 export abstract class CreateUserService {

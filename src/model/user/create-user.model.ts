@@ -1,5 +1,5 @@
 import { PrismaClient, User } from '@prisma/client';
-import { ERROR_MESSAGE } from '../util/error_message';
+import { ERROR_MESSAGE } from '../../util/error_message';
 
 export abstract class CreateUserModel {
   static async exec(userData: User) {
