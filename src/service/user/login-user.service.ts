@@ -1,8 +1,9 @@
 import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { LoginUserModel } from '../model/login-user.model';
-import { ERROR_MESSAGE } from '../util/error_message';
+import { LoginUserModel } from '../../model/login-user.model';
+import { ERROR_MESSAGE } from '../../util/error_message';
+
 import 'dotenv/config';
 
 export abstract class LoginUserService {

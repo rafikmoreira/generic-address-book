@@ -1,7 +1,6 @@
 import { User } from '@prisma/client';
-import { CreateUserModel } from '../model/create-user.model';
+import { CreateUserModel } from '../../model/create-user.model';
 import bcrypt from 'bcrypt';
-import { ERROR_MESSAGE } from '../util/error_message';
 
 export abstract class CreateUserService {
   static async exec(userData: User) {

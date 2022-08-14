@@ -4,4 +4,6 @@ export enum ERROR_MESSAGE {
   INVALID_PASSWORD = 'houve um problema ao tentar realizar login',
   USER_NOT_FOUND = 'houve um problema ao tentar realizar login',
   UNAUTHORIZED = 'não autorizado',
+  UNIQUE_CPF = 'CPF já cadastrado',
+  CONTACT_NOT_FOUND = ' contato não encontrado',
 }

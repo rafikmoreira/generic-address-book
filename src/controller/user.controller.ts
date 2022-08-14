@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 import { Request, Response } from 'express';
-import { CreateUserService } from '../service/create-user.service';
-import { LoginUserService } from '../service/login-user.service';
+import { CreateUserService } from '../service/user/create-user.service';
+import { LoginUserService } from '../service/user/login-user.service';
 
 import { Controller } from '../interfaces/controller';
 
