@@ -11,14 +11,14 @@ import { UpdatedContactService } from '../service/contact/update-contact.service
 export class ContactController implements Controller {
   async list(req: Request, res: Response): Promise<Response> {
     const user = req.body.currentUser as User;
-    const contacts = await ListContactService.exec(user);
+    const contacts = await new ListContactService(user).exec();
     return res.status(200).json(contacts);
   }
 
   async show(req: Request, res: Response): Promise<Response> {
     const user = req.body.currentUser as User;
     const contactId = +req.params.id;
-    const contact = await ShowContactService.exec(contactId, user);
+    const contact = await new ShowContactService(contactId, user).exec();
     return res.status(200).json(contact);
   }
 
@@ -28,7 +28,7 @@ export class ContactController implements Controller {
     const contactData = { cpf, email, name, telefone } as Contact;
     const user = req.body.currentUser as User;
 
-    const contact = await CreateContactService.exec(contactData, user);
+    const contact = await new CreateContactService(contactData, user).exec();
 
     return res.status(200).json(contact);
   }
@@ -38,18 +38,18 @@ export class ContactController implements Controller {
     const contactId = +req.params.id;
     const { cpf, email, name, telefone } = req.body;
     const contactData = { cpf, email, name, telefone } as Contact;
-    const contact = await UpdatedContactService.exec(
+    const contact = await new UpdatedContactService(
       contactId,
       contactData,
       user
-    );
+    ).exec();
     return res.status(200).json(contact);
   }
 
   async destroy(req: Request, res: Response): Promise<Response> {
     const user = req.body.currentUser as User;
     const contactId = +req.params.id;
-    const contact = await DestroyContactService.exec(contactId, user);
+    const contact = await new DestroyContactService(contactId, user).exec();
     return res.status(200).json(contact);
   }
 }

@@ -1,11 +1,17 @@
 import { PrismaClient, User } from '@prisma/client';
 
-export abstract class ListContactModel {
-  static async exec(user: User) {
+export class ListContactModel {
+  private user: User;
+
+  constructor(user: User) {
+    this.user = user;
+  }
+
+  async exec() {
     const prisma = new PrismaClient();
 
     const contacts = await prisma.contact.findMany({
-      where: { userId: user.id },
+      where: { userId: this.user.id },
     });
 
     return contacts;

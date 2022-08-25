@@ -1,25 +1,31 @@
 import { Contact, PrismaClient, User } from '@prisma/client';
 import { ERROR_MESSAGE } from '../../util/error_message';
 
-export abstract class CreateContactModel {
-  static async exec(contactData: Contact, user: User) {
+export class CreateContactModel {
+  private contactData: Contact;
+  private user: User;
+
+  constructor(contactData: Contact, user: User) {
+    this.contactData = contactData;
+    this.user = user;
+  }
+
+  async exec() {
     const prisma = new PrismaClient();
 
     const contactAlreadyExists = await prisma.contact.findFirst({
-      where: { cpf: contactData.cpf },
+      where: { cpf: this.contactData.cpf },
     });
 
     if (contactAlreadyExists) {
       throw new Error(ERROR_MESSAGE.UNIQUE_CPF);
     }
 
-    const contact = await prisma.contact.create({
+    return await prisma.contact.create({
       data: {
-        ...contactData,
-        userId: user.id,
+        ...this.contactData,
+        userId: this.user.id,
       },
     });
-
-    return contact;
   }
 }

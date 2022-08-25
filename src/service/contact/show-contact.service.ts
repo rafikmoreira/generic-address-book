@@ -1,10 +1,16 @@
 import { User } from '@prisma/client';
 import { ShowContactModel } from '../../model/contact/show-contact.model';
 
-export abstract class ShowContactService {
-  static async exec(contactId: number, user: User) {
-    const contact = await ShowContactModel.exec(contactId, user);
+export class ShowContactService {
+  private contactId: number;
+  private user: User;
 
-    return contact;
+  constructor(contactId: number, user: User) {
+    this.contactId = contactId;
+    this.user = user;
+  }
+
+  async exec() {
+    return await new ShowContactModel(this.contactId, this.user).exec();
   }
 }
